@@ -1,25 +1,48 @@
 import logo from './logo.svg';
+import React, { Component } from 'react';
 import './App.css';
+import Rect from './Rect';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      msg: 'Hello Component!',
+      count: 0,
+    };
+    let timer = setInterval(() => {
+      this.setState({
+        msg: '[count: ' + this.state.count + ']',
+        count: this.state.count + 1,
+      });
+    }, 1000);
+  }
+
+  render() {
+    return (
+      <div>
+        <h1 className='bg-primary text-white display-4'>React</h1>
+        <div className='container'>
+          <p className='subtitle'>count message</p>
+          <p className='alert alert-warning'>{this.state.msg}</p>
+          <p className='alert alert-dark'>{this.props.msg}</p>
+        </div>
+      </div>
+
+
+      // <div>
+      //   <h1 className='bg-primary text-white display-4'>React</h1>
+      //   <div className='container'>
+      //     <p className='subtitle'>Draw rectangle</p>
+      //       <Rect x='200' y='200' width='200' height='200' color='#6ff9' radius="25"/>
+      //       <Rect x='300' y='300' width='200' height='200' color='#f6f9' radius="75"/>
+      //       <Rect x='400' y='400' width='200' height='200' color='#6669' radius="100"/>
+      //   </div>
+      // </div>
+      
+    );
+  }
 }
 
 export default App;
