@@ -1,48 +1,43 @@
 import logo from './logo.svg';
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import Rect from './Rect';
+import { use } from 'react';
 
-let data = {title: 'Title', message: 'this is sample message.'};
+function App() {
+  const [count, setCount] = useState(0);
+  const [flag, setFlag] = useState(false);
+  const clickFunk = () => {
+    setCount(count + 1);
+  }
+  const flagFunk = (e) => {
+    setFlag(e.target.checked);
+  }
 
-const SampleContext = React.createContext(data);
+  return (
+    <div>
+      <h1 className="bg-primary text-white display-4"></h1>
+      <div className="container">
+        <h4 className="my-3">Hooks Sample</h4>
 
-class App extends Component {
-  render() {
-    return (
-      <div>
-        <h1 className='bg-primary text-white display-4'>React</h1>
-        <div className='container'>
-          <Message />
-          <Title />
+        {flag ?
+        <div className="alert alert-primary text-center">
+          <p className='h5 mb-3'>count: {count} times!</p>
+          <div><button className="btn btn-primary" onClick={clickFunk}>Click me!</button></div>
+      </div>
+      :
+      <div className="card p-3 border-primary text-center">
+        <p className='h5 mb-3 text-left text-primary'>count: {count} times!</p>
+        <div><button className="btn btn-primary" onClick={clickFunk}>Click me!</button></div>
+      </div>
+        }
+        <div className="form-group h6 text-center pt-3">
+          <input type="checkbox" className="form-check-input" id="check1" onChange={flagFunk}/>
+          <label className="form-check-label" htmlFor="check1">Change form style</label>
         </div>
       </div>
-    );
-  }
+    </div>
+  );
 }
 
-class Message extends Component {
-  static contextType = SampleContext;
-
-  render() {
-    return (
-      <div className='card p-2 my-3'>
-        <h2>{this.context.title}</h2>
-      </div>
-    );
-  }
-}
-
-class Title extends Component {
-  static contextType = SampleContext;
-
-  render() {
-    return (
-      <div className='alert alert-primary'>
-        <p className='h5'>{this.context.message}</p>
-      </div>
-    );
-  }
-}
-    
 export default App;
