@@ -4,19 +4,30 @@ import './App.css';
 import Rect from './Rect';
 
 class App extends Component {
+  // data = []
+
+  // area = {
+  //   width: "500px",
+  //   height: "500px",
+  //   border: "1px solid blue"
+  // }
 
   constructor(props) {
     super(props);
     this.state = {
       msg: 'Hello Component!',
-      count: 0,
+      counter: 0,
+      fig: true,
     };
-    let timer = setInterval(() => {
-      this.setState({
-        msg: '[count: ' + this.state.count + ']',
-        count: this.state.count + 1,
-      });
-    }, 1000);
+    this.doAction = this.doAction.bind(this);
+  }
+
+  doAction(event){
+    this.setState({
+      counter: this.state.counter + 1,
+      msg: '*** count: ' + this.state.counter + ' ***',
+      fig: !this.state.fig
+    })
   }
 
   render() {
@@ -24,23 +35,22 @@ class App extends Component {
       <div>
         <h1 className='bg-primary text-white display-4'>React</h1>
         <div className='container'>
-          <p className='subtitle'>count message</p>
-          <p className='alert alert-warning'>{this.state.msg}</p>
-          <p className='alert alert-dark'>{this.props.msg}</p>
+          <p className='subtitle'>count number</p>
+          {
+            this.state.fig ?
+              <div className='alert alert-primary text-right'>
+                <p className='h5'>count: {this.state.msg}</p>
+                </div>
+              :
+                <div className='alert alert-primary text-left'>
+                  <p className='h5'>{this.state.msg}です．</p>
+                </div>
+          }
+          <div className='text-center'>
+            <button className='btn btn-primary' onClick={this.doAction}>Click</button>
+          </div>
         </div>
       </div>
-
-
-      // <div>
-      //   <h1 className='bg-primary text-white display-4'>React</h1>
-      //   <div className='container'>
-      //     <p className='subtitle'>Draw rectangle</p>
-      //       <Rect x='200' y='200' width='200' height='200' color='#6ff9' radius="25"/>
-      //       <Rect x='300' y='300' width='200' height='200' color='#f6f9' radius="75"/>
-      //       <Rect x='400' y='400' width='200' height='200' color='#6669' radius="100"/>
-      //   </div>
-      // </div>
-      
     );
   }
 }
